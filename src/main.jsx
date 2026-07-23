@@ -5,11 +5,11 @@ import App from "./App.jsx";
 import { AppWrapper } from "./components/common/PageMeta.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <ThemeProvider>
-      <AppWrapper>
-        <App />
-      </AppWrapper>
-    </ThemeProvider>
-  </StrictMode>
+    <StrictMode>
+        <ThemeProvider>
+            <AppWrapper>
+                <App />
+            </AppWrapper>
+        </ThemeProvider>
+    </StrictMode>
 );

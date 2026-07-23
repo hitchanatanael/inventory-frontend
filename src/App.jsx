@@ -6,6 +6,7 @@ import InventoryPlaceholder from "./pages/Inventory/InventoryPlaceholder";
 import MasterAnggota from "./pages/MasterData/MasterAnggota";
 import MasterBarang from "./pages/MasterData/MasterBarang";
 import BarangMasuk from "./pages/Transactions/BarangMasuk";
+import BarangMasukForm from "./pages/Transactions/BarangMasukForm";
 import BarangKeluar from "./pages/Transactions/BarangKeluar";
 import StokBarang from "./pages/Inventory/StokBarang";
 
@@ -31,6 +32,14 @@ function App() {
                     <Route
                         path="/barang-masuk"
                         element={<BarangMasuk />}
+                    />
+                    <Route
+                        path="/barang-masuk/tambah"
+                        element={<BarangMasukForm mode="add" />}
+                    />
+                    <Route
+                        path="/barang-masuk/:id/edit"
+                        element={<BarangMasukForm mode="edit" />}
                     />
                     <Route
                         path="/barang-keluar"

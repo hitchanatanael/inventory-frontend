@@ -18,6 +18,8 @@ const emptyForm = {
   keterangan: "ANGGOTA",
 };
 
+const ENTRIES_PER_PAGE = 20;
+
 function MasterAnggota() {
   const [members, setMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +27,6 @@ function MasterAnggota() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalMode, setModalMode] = useState(null);
   const [formData, setFormData] = useState(emptyForm);
@@ -68,12 +69,12 @@ function MasterAnggota() {
     );
   }, [members, searchTerm]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / entriesPerPage));
+  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / ENTRIES_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
-  const startIndex = (safePage - 1) * entriesPerPage;
-  const paginatedMembers = filteredMembers.slice(startIndex, startIndex + entriesPerPage);
+  const startIndex = (safePage - 1) * ENTRIES_PER_PAGE;
+  const paginatedMembers = filteredMembers.slice(startIndex, startIndex + ENTRIES_PER_PAGE);
   const showingFrom = filteredMembers.length === 0 ? 0 : startIndex + 1;
-  const showingTo = Math.min(startIndex + entriesPerPage, filteredMembers.length);
+  const showingTo = Math.min(startIndex + ENTRIES_PER_PAGE, filteredMembers.length);
 
   useEffect(() => {
     setCurrentPage((page) => Math.min(Math.max(1, page), totalPages));
@@ -121,11 +122,6 @@ function MasterAnggota() {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleEntriesChange = (event) => {
-    setEntriesPerPage(Number(event.target.value));
     setCurrentPage(1);
   };
 
@@ -330,21 +326,7 @@ function MasterAnggota() {
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-          <div className="flex flex-col gap-4 border-b border-gray-100 p-5 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
-            <label className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              Show
-              <select
-                value={entriesPerPage}
-                onChange={handleEntriesChange}
-                className="h-10 rounded-lg border border-gray-300 bg-transparent px-3 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-              >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-              </select>
-              entries
-            </label>
-
+          <div className="flex flex-col gap-4 border-b border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-end">
             <div className="relative w-full sm:max-w-xs">
               <Search className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
               <input
